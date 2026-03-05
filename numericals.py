@@ -59,7 +59,10 @@ def collinear(a: NumPoint, b: NumPoint, c: NumPoint) -> bool:
 
 
 class NumLine:
-  """A point x is in the line if x*n = c where n is a vector of unit length."""
+  """
+  A point x is in the line if x*n = c where n is a vector of unit length
+  normal to the line. It's just defining ax+by=c.
+  """
 
   def __init__(self, n: NumPoint, c: float):
     assert np.isclose(np.linalg.norm(n), 1), n
@@ -86,7 +89,7 @@ class NumLine:
     return -np.dot(perp_rot(self.n), a)
 
 
-def intersect_ll(line1: NumLine, line2: NumLine):
+def intersect_ll(line1: NumLine, line2: NumLine) -> NumPoint | None:
   matrix = np.stack((line1.n, line2.n))
   b = np.array((line1.c, line2.c))
   if abs(np.linalg.det(matrix)) < ATOM:
